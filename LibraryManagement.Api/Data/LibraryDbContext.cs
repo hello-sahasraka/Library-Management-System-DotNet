@@ -11,7 +11,8 @@ public class LibraryDbContext : DbContext
 
     //Represent Book entity
     public DbSet<Book> Books => Set<Book>();
-
+    //Represent User entity
+    public DbSet<User> Users => Set<User>();
 
     //Table schema
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -31,5 +32,20 @@ public class LibraryDbContext : DbContext
               .IsRequired()
               .HasMaxLength(150);
     });
+
+        modelBuilder.Entity<User>(entity =>
+        {
+            entity.HasKey(u => u.Id);
+
+            modelBuilder.Entity<User>(entity =>
+        {
+            entity.HasKey(u => u.Id);
+
+            entity.HasIndex(u => u.Email)
+                    .IsUnique();
+        });
+
+        });
+
     }
 }
