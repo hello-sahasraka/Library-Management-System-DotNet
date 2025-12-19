@@ -23,7 +23,8 @@ public class AuthController : ControllerBase
         try
         {
             var token = await _auth.RegisterUser(dto);
-            return Ok(new AuthResponseDto(token));
+            var response = new AuthResponseDto(token, dto.Name, dto.Role);
+            return Ok(response);
         }
         catch (InvalidOperationException ex)
         {
@@ -39,8 +40,8 @@ public class AuthController : ControllerBase
     {
         try
         {
-            var token = await _auth.LoginUser(dto);
-            return Ok(new AuthResponseDto(token));
+            var response = await _auth.LoginUser(dto);
+            return Ok(response);
         }
         catch (InvalidOperationException ex)
         {

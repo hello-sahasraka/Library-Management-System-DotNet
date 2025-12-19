@@ -23,7 +23,7 @@ builder.Services.AddScoped<LibraryManagement.Api.Services.BooksService>();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("dev", policy =>
-        policy.WithOrigins("http://localhost:5131") // allow local frontend dev server
+        policy.WithOrigins("http://localhost:5173") // allow local frontend dev server
               .AllowAnyHeader()
               .AllowAnyMethod());
 });

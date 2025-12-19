@@ -85,7 +85,7 @@ public class AuthService
     }
 
     // Login existing user
-    public async Task<string> LoginUser(UserLoginDto dto)
+    public async Task<AuthResponseDto> LoginUser(UserLoginDto dto)
     {
         var user = await _db.Users.FirstOrDefaultAsync(u => u.Email == dto.Email);
         if (user is null) throw new InvalidOperationException("User not found");
@@ -93,6 +93,7 @@ public class AuthService
         if (!VerifyPassword(user.PasswordHash, dto.Password))
             throw new InvalidOperationException("Invalid credentials");
 
-        return CreateJwtToken(user);
+        var token = CreateJwtToken(user);
+        return new AuthResponseDto(token, user.Name, user.Role);
     }
 }
